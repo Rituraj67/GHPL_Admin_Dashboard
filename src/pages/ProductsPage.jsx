@@ -89,7 +89,7 @@ export default function ProductsPage() {
           </div>
         </div>
 
-        <div className=" flex flex-wrap gap-8 justify-evenly">
+        <div className=" flex flex-wrap gap-8 justify-start">
           {filteredProducts.map((product, index) => (
             <ProductCard key={product.id} product={product} index={index} />
           ))}

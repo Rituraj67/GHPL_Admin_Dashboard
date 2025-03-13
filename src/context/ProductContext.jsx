@@ -1,19 +1,24 @@
 import { useEffect } from "react";
 import { createContext, useContext, useState } from "react";
-import axios from 'axios';
+import axios from "../config/axiosInstance.js"
+
 const ProductContext= createContext(null);
 
 export function ProductProvider({children}){
+  const [isLoading2, setIsLoading] = useState(false);
 
     const [products, setproducts] = useState([]);
     const getProducts= async()=>{
         try {
+            setIsLoading(true)
             console.log(import.meta.env.VITE_BASE_ADDRESS);
-            const res= await axios.get(`${import.meta.env.VITE_BASE_ADDRESS}/api/products/`);
-            console.log(res);
+            const res= await axios.get('/api/products/');
+            
             setproducts(res.data);
         } catch (error) {
             console.log(error);
+        }finally{
+            setIsLoading(false)
         }
     }
     useEffect(() => {
@@ -42,7 +47,7 @@ export function ProductProvider({children}){
     
 
     return(
-        <ProductContext.Provider value={{products, addProduct, updateProduct, removeProduct}} >{children}</ProductContext.Provider>
+        <ProductContext.Provider value={{products, addProduct, isLoading2, updateProduct, removeProduct}} >{children}</ProductContext.Provider>
     )
 }
 

@@ -5,13 +5,16 @@ import App from "./App";
 import { AuthProvider } from "./context/AuthContext";
 import "./index.css";
 import { ProductProvider } from "./context/ProductContext";
+import { NewsProvider } from "./context/NewsContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
         <ProductProvider>
-          <App />
+          <NewsProvider>
+            <App />
+          </NewsProvider>
         </ProductProvider>
       </AuthProvider>
     </BrowserRouter>

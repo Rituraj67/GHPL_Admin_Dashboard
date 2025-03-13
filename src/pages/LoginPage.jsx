@@ -62,7 +62,7 @@ export default function LoginPage() {
         email,
         otp,
       });
-      console.log(res);
+      
       if (res.status == 200) {
         await login(res.data.id );
         mytoast("Logged in successfully!");

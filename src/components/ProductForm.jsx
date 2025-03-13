@@ -128,10 +128,7 @@ export default function ProductForm({ initialData = null, onSubmit, isEditing = 
         productFormData.append(`product_images`, file)
       })
 
-      // For demo/development, log the FormData contents
-      console.log("Form data to be submitted:", productFormData)
-      console.log("Existing images:", existingImages)
-      console.log("New image files:", newImageFiles)
+  
 
     
       let res;
@@ -152,7 +149,7 @@ export default function ProductForm({ initialData = null, onSubmit, isEditing = 
         addProduct(res.data)
       }
       onSubmit()
-      console.log(res);
+    
 
     } catch (error) {
       console.error("Error submitting product:", error)

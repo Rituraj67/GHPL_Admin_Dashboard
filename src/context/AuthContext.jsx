@@ -1,57 +1,60 @@
+import { createContext, useContext, useState, useEffect } from "react";
+import axios from "../config/axiosInstance";
+import { useNavigate } from "react-router-dom";
 
-import { createContext, useContext, useState, useEffect } from "react"
-import axios from "../config/axiosInstance"
-import { useNavigate } from "react-router-dom"
-
-const AuthContext = createContext(null)
+const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading1, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-  
-  
-
 
   useEffect(() => {
+    const refreshLogin = async () => {
       try {
-        const refreshLogin= async()=>{
-          const res= await axios.post("/api/auth/refresh");
-          console.log(res);
-          if(res.status== 200){
-            setUser(res.data.id)
-            setIsAuthenticated(true)
-            navigate("/admin")
-          }
+        setIsLoading(true)
+        const res = await axios.post("/api/auth/refresh");
+       
+        if (res.status == 200) {
+          setUser(res.data.id);
+          setIsAuthenticated(true);
+          navigate("/admin");
         }
-        refreshLogin();
       } catch (error) {
-        console.error("Error parsing stored user:", error)
+        console.log(error);
+      }finally{
+        setIsLoading(false)
       }
-  }, [])
+    };
+    refreshLogin();
+  }, []);
 
   const login = async (userData) => {
-    setUser(userData)
-    setIsAuthenticated(true)
-    return true
-  }
+    setUser(userData);
+    setIsAuthenticated(true);
+    return true;
+  };
 
   const logout = () => {
-    
-    setUser(null)
-    setIsAuthenticated(false)
-  }
+    setUser(null);
+    setIsAuthenticated(false);
+  };
 
-  return <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider
+      value={{ user, isLoading1, isAuthenticated, login, logout }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export function useAuth() {
-  const context = useContext(AuthContext)
+  const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider")
+    throw new Error("useAuth must be used within an AuthProvider");
   }
-  return context
+  return context;
 }
-
- 

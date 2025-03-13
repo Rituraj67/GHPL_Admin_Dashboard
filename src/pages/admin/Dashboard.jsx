@@ -1,6 +1,21 @@
-import AdminLayout from "../../components/layouts/AdminLayout"
+import AdminLayout from "../../components/layouts/AdminLayout";
+import { useNews } from "../../context/NewsContext";
+import { useProduct } from "../../context/ProductContext";
 
 export default function Dashboard() {
+  const { products } = useProduct();
+  const { news } = useNews();
+
+  // Sort by createdAt descending and take the latest 3
+  const recentProducts = [...products]
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .slice(0, 3);
+
+  const recentNews = [...news]
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 3);
+
+    
   return (
     <AdminLayout>
       <div className="p-6">
@@ -11,7 +26,7 @@ export default function Dashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-500 mb-1">Total Products</p>
-                <h3 className="text-2xl font-bold">124</h3>
+                <h3 className="text-2xl font-bold">{products.length}</h3>
               </div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +50,7 @@ export default function Dashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-500 mb-1">News Articles</p>
-                <h3 className="text-2xl font-bold">38</h3>
+                <h3 className="text-2xl font-bold">{news.length}</h3>
               </div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -106,20 +121,37 @@ export default function Dashboard() {
           <div className="bg-white shadow rounded-lg overflow-hidden border">
             <div className="p-4 border-b">
               <h2 className="text-lg font-semibold">Recent Products</h2>
-              <p className="text-sm text-gray-500">Latest products added to the catalog</p>
+              <p className="text-sm text-gray-500">
+                Latest products added to the catalog
+              </p>
             </div>
             <div className="p-4">
               <div className="space-y-4">
-                {[1, 2, 3].map((item) => (
-                  <div key={item} className="flex items-center gap-4 p-2 hover:bg-gray-50 rounded-md">
+                {recentProducts.map((product) => (
+                  <div
+                    key={product.id}
+                    className="flex items-center gap-4 p-2 hover:bg-gray-50 rounded-md"
+                  >
                     <img
-                      src={`/placeholder.svg`}
-                      alt={`Product ${item}`}
+                      src={product.images?.[0] || "/placeholder.svg"}
+                      alt={product.name}
                       className="w-12 h-12 rounded-md object-cover"
                     />
                     <div>
-                      <h4 className="font-medium">Product Name {item}</h4>
-                      <p className="text-sm text-gray-500">Added on {new Date().toLocaleDateString()}</p>
+                      <div className=" flex items-center gap-2">
+                        <h4 className="font-medium">{product.name}</h4>
+                        <p className=" font-normal text-sm text-blue-600">
+                          ({product.type})
+                        </p>
+                      </div>
+                      <p className=" font-light text-sm text-green-600">
+                        {product.composition}
+                      </p>
+
+                      <p className="text-sm text-gray-500">
+                        Added on{" "}
+                        {new Date(product.createdAt).toLocaleDateString()}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -130,16 +162,30 @@ export default function Dashboard() {
           <div className="bg-white shadow rounded-lg overflow-hidden border">
             <div className="p-4 border-b">
               <h2 className="text-lg font-semibold">Recent News</h2>
-              <p className="text-sm text-gray-500">Latest news articles published</p>
+              <p className="text-sm text-gray-500">
+                Latest news articles published
+              </p>
             </div>
             <div className="p-4">
               <div className="space-y-4">
-                {[1, 2, 3].map((item) => (
-                  <div key={item} className="flex items-center gap-4 p-2 hover:bg-gray-50 rounded-md">
-                    <img src={`/placeholder.svg`} alt={`News ${item}`} className="w-12 h-12 rounded-md object-cover" />
+                {recentNews.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex items-start gap-4 p-2 hover:bg-gray-50 rounded-md"
+                  >
+                    <img
+                      src={item.image || "/placeholder.svg"}
+                      alt={item.title}
+                      className="w-16 h-16 rounded-md object-cover"
+                    />
                     <div>
-                      <h4 className="font-medium">News Title {item}</h4>
-                      <p className="text-sm text-gray-500">Published on {new Date().toLocaleDateString()}</p>
+                      <h4 className="font-medium">{item.title}</h4>
+                      <p className="text-sm text-gray-600 mb-1 line-clamp-2">
+                        {item.description}
+                      </p>
+                      <p className="text-xs text-gray-400">
+                        Published on {new Date(item.date).toLocaleDateString()}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -149,6 +195,5 @@ export default function Dashboard() {
         </div>
       </div>
     </AdminLayout>
-  )
+  );
 }
-

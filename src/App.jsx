@@ -14,6 +14,9 @@ import Dashboard from "./pages/admin/Dashboard";
 import AdminProducts from "./pages/admin/Products";
 import AdminNewsroom from "./pages/admin/Newsroom";
 import AdminContact from "./pages/admin/Contact";
+import { useProduct } from "./context/ProductContext";
+import Loader from "./components/Loader";
+import { useNews } from "./context/NewsContext";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -27,6 +30,14 @@ const ProtectedRoute = ({ children }) => {
 };
 
 function App() {
+
+
+  const {isLoading1}= useAuth();
+  const {isLoading2}= useProduct();
+  const {isLoading3} = useNews();
+
+  if(isLoading1 || isLoading2 || isLoading3) return <Loader/>
+
   return (
     <>
       <Routes>

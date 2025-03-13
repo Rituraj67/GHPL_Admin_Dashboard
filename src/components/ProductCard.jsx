@@ -23,9 +23,7 @@ export default function ProductCard({ product, index = 0, onEdit }) {
     }
   }
 
-  const formattedType = product.type
-    ? product.type.charAt(0).toUpperCase() + product.type.slice(1)
-    : ""
+  
 
   return (
     <motion.div
@@ -122,12 +120,12 @@ export default function ProductCard({ product, index = 0, onEdit }) {
           {product.name}
         </h3>
 
-        <div className="space-y-2 text-sm text-gray-700 flex-grow">
-          <DetailRow label="MRP:" value={`₹${product.mrp}`} highlight />
-          <DetailRow label="Type:" value={formattedType} />
-          <DetailRow label="Division:" value={product.division} />
+        <div className="space-y-2  text-sm text-gray-700 flex-grow">
+          <DetailRow label="MRP:" value={`₹${product.mrp}`} highlight color={'text-red-700'} />
+          <DetailRow label="Type:" value={product.type} />
+          <DetailRow label="Division:" value={product.division} highlight color={'text-blue-700'} />
           <DetailRow label="Packaging:" value={product.packaging} />
-          <DetailRow label="Composition:" value={product.composition} />
+          <DetailRow label="Composition:" value={product.composition} color={'text-green-700'} />
 
           {product.description && (
             <div>
@@ -143,9 +141,18 @@ export default function ProductCard({ product, index = 0, onEdit }) {
   )
 }
 
-const DetailRow = ({ label, value, highlight = false }) => (
-  <div className="flex items-start gap-1">
-    <span className="text-gray-500 font-medium w-24">{label}</span>
-    <span className={highlight ? "text-primary-600 font-semibold" : "text-gray-800"}>{value}</span>
-  </div>
-)
+const DetailRow = ({ label, value, highlight = false, color }) => {
+  const valueClass = color
+    ? `${color} font-semibold`
+    : highlight
+    ? "text-primary-600 font-semibold"
+    : "text-gray-800";
+
+  return (
+    <div className="flex items-start gap-1">
+      <span className="text-gray-500 font-medium w-24">{label}</span>
+      <span className={valueClass}>{value}</span>
+    </div>
+  );
+};
+
