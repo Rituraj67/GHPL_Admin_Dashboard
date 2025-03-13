@@ -7,7 +7,7 @@ import cors from 'cors';
 import sequelize from './config/db.js'; // Sequelize instance
 import authRoutes from './routes/authRoutes.js';
 import productRoutes from './routes/productRoutes.js';
-
+import newsRoutes from "./routes/newsRoutes.js"
 // Load environment variables
 dotenv.config();
 
@@ -24,6 +24,7 @@ app.use(cookieParser());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/news', newsRoutes);
 app.get("/", (req, res)=>{
   res.send("Express App is Running...");
 })
