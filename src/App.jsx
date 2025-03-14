@@ -8,7 +8,6 @@ import LoginPage from "./pages/LoginPage";
 import ProductsPage from "./pages/ProductsPage";
 import NewsroomPage from "./pages/NewsroomPage";
 import ContactPage from "./pages/ContactPage";
-
 // Admin Pages
 import Dashboard from "./pages/admin/Dashboard";
 import AdminProducts from "./pages/admin/Products";
@@ -17,6 +16,7 @@ import AdminContact from "./pages/admin/Contact";
 import { useProduct } from "./context/ProductContext";
 import Loader from "./components/Loader";
 import { useNews } from "./context/NewsContext";
+import { useContact } from "./context/ContactContext";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -25,7 +25,6 @@ const ProtectedRoute = ({ children }) => {
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
-
   return children;
 };
 
@@ -35,8 +34,9 @@ function App() {
   const {isLoading1}= useAuth();
   const {isLoading2}= useProduct();
   const {isLoading3} = useNews();
+  const {isLoading4}= useContact();
 
-  if(isLoading1 || isLoading2 || isLoading3) return <Loader/>
+  if(isLoading1 || isLoading2 || isLoading3 || isLoading4) return <Loader/>
 
   return (
     <>

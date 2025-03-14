@@ -1,10 +1,12 @@
 import AdminLayout from "../../components/layouts/AdminLayout";
+import { useAuth } from "../../context/AuthContext";
 import { useNews } from "../../context/NewsContext";
 import { useProduct } from "../../context/ProductContext";
 
 export default function Dashboard() {
   const { products } = useProduct();
   const { news } = useNews();
+  const {usersCount}= useAuth()
 
   // Sort by createdAt descending and take the latest 3
   const recentProducts = [...products]
@@ -75,7 +77,7 @@ export default function Dashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-500 mb-1">Admin Users</p>
-                <h3 className="text-2xl font-bold">7</h3>
+                <h3 className="text-2xl font-bold">{usersCount}</h3>
               </div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -99,7 +101,7 @@ export default function Dashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-500 mb-1">Website Traffic</p>
-                <h3 className="text-2xl font-bold">2.4k</h3>
+                <h3 className="text-2xl font-bold">1</h3>
               </div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

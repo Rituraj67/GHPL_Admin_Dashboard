@@ -6,6 +6,8 @@ import { AuthProvider } from "./context/AuthContext";
 import "./index.css";
 import { ProductProvider } from "./context/ProductContext";
 import { NewsProvider } from "./context/NewsContext";
+import { ContactProvider } from "./context/ContactContext";
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -13,7 +15,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <AuthProvider>
         <ProductProvider>
           <NewsProvider>
-            <App />
+            <ContactProvider>
+              <App />
+            </ContactProvider>
           </NewsProvider>
         </ProductProvider>
       </AuthProvider>

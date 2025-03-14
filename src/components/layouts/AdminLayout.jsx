@@ -7,9 +7,10 @@ import logo from "../../assets/GHPL.png"
 import axios from "../../config/axiosInstance"
 
 export default function AdminLayout({ children }) {
-  const { logout } = useAuth()
+  const { logout, user } = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
 
@@ -161,7 +162,7 @@ export default function AdminLayout({ children }) {
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
               <circle cx="12" cy="7" r="4"></circle>
             </svg>
-            <span className="hidden md:inline-block">Administrator</span>
+            <span className="hidden font-mono text-zinc-800 md:inline-block">{user}</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-4 w-4"

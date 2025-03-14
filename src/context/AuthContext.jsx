@@ -6,6 +6,7 @@ const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [usersCount, setUsersCount]= useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading1, setIsLoading] = useState(false);
 
@@ -16,9 +17,11 @@ export function AuthProvider({ children }) {
       try {
         setIsLoading(true)
         const res = await axios.post("/api/auth/refresh");
-       
+        console.log(res);
         if (res.status == 200) {
-          setUser(res.data.id);
+          
+          setUser(res.data.name);
+          setUsersCount(res.data.count);
           setIsAuthenticated(true);
           navigate("/admin");
         }
@@ -31,8 +34,9 @@ export function AuthProvider({ children }) {
     refreshLogin();
   }, []);
 
-  const login = async (userData) => {
+  const login = async (userData, userCount) => {
     setUser(userData);
+    setUsersCount(userCount)
     setIsAuthenticated(true);
     return true;
   };
@@ -44,7 +48,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, isLoading1, isAuthenticated, login, logout }}
+      value={{ user, usersCount, isLoading1, isAuthenticated, login, logout }}
     >
       {children}
     </AuthContext.Provider>

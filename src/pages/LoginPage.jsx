@@ -64,7 +64,7 @@ export default function LoginPage() {
       });
       
       if (res.status == 200) {
-        await login(res.data.id );
+        await login(res.data.name, res.data.count );
         mytoast("Logged in successfully!");
         navigate("/admin");
       }
