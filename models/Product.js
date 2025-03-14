@@ -40,6 +40,9 @@ const Product = sequelize.define("Product", {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
+},
+{
+  timestamps: true, // includes createdAt and updatedAt
 });
 
 export default Product;

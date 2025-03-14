@@ -7,6 +7,7 @@ export const protect = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = decoded.userId;
+    req.name= decoded.name;
     console.log("User Verified");
     next();
   } catch (err) {

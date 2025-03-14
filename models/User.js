@@ -8,6 +8,7 @@ const User = sequelize.define("User", {
     primaryKey: true,
   },
   email: { type: DataTypes.STRING, unique: true, allowNull: false },
+  name: { type: DataTypes.STRING,  allowNull: false },
   otp: { type: DataTypes.STRING, defaultValue: null },
   otpExpiresAt: {
     type: DataTypes.DATE,

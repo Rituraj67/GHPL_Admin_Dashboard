@@ -34,7 +34,7 @@ export const verifyOtp = async (req, res) => {
     user.otpExpiresAt &&
     now < user.otpExpiresAt
   ) {
-    const token = generateToken(user.id);
+    const token = generateToken(user.id, user.name);
 
     const isCrossSite = process.env.NODE_ENV === "production";
     res.cookie("token", token, {
@@ -49,16 +49,24 @@ export const verifyOtp = async (req, res) => {
     user.otpExpiresAt = null;
     await user.save();
 
-    return res.status(200).json({ message: "Authenticated" });
+    const usersCount = await User.count({
+      where: { isAuthorized: true }
+    });
+
+    return res.status(200).json({ message: "Authenticated",name: user.name, count: usersCount });
   }
 
   res.status(400).json({ message: "Invalid or expired OTP" });
 };
 
 export const refreshLogin = async (req, res) => {
+  console.log(req.userId, req.name);
   try {
     if (req.userId) {
-      res.status(200).send({ message: "Token Verified", id: req.userId });
+      const usersCount = await User.count({
+        where: { isAuthorized: true }
+      });
+      res.status(200).send({ message: "Token Verified", name: req.name, count: usersCount });
     }
   } catch (error) {
     console.log(error);
@@ -79,7 +87,7 @@ export const logoutUser = (req, res) => {
 
 export const addUser = async (req, res) => {
   try {
-    const { email } = req.body;
+    const { email, name } = req.body;
 
     if (!email) {
       return res.status(400).json({ message: "Email is required." });
@@ -91,7 +99,7 @@ export const addUser = async (req, res) => {
       return res.status(409).json({ message: "User already exists." });
     }
 
-    const newUser = await User.create({ email });
+    const newUser = await User.create({ email, name });
 
     res.status(201).json({
       message: "User created successfully.",
