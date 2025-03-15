@@ -1,0 +1,28 @@
+service: express-app
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+
+plugins:
+  - serverless-offline
+
+functions:
+  app:
+    handler: index.handler
+    events:
+      - http:
+          path: /{proxy+}
+          method: any
+          cors:
+            origin: 'https://ghpl-admin-dashboard.vercel.app'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Credentials
+            allowCredentials: true

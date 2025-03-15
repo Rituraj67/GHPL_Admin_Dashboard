@@ -1,0 +1,78 @@
+name: Deploy Lambda to AWS
+
+on:
+  push:
+    branches:
+      - backend # Change this to your deployment branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18 # Change based on your Lambda runtime
+
+      - name: Install Dependencies
+        run: npm ci --omit=dev # `npm ci` is faster and more reliable for CI/CD
+
+      - name: Archive Deployment Package
+        run: |
+          zip -rq lambda.zip . -x ".git/*" "node_modules/aws-sdk/*" # Quiet mode & exclude aws-sdk
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Check Lambda Function Status
+        run: |
+          while true; do
+            STATUS=$(aws lambda get-function-configuration --function-name ${{ secrets.LAMBDA_FUNCTION_NAME }} --query 'State' --output text)
+            if [ "$STATUS" == "Active" ]; then
+              echo "Lambda function is ready for update."
+              break
+            else
+              echo "Lambda function is still updating. Waiting..."
+              sleep 5
+            fi
+          done
+
+      - name: Update Lambda Environment Variables
+        run: |
+          aws lambda update-function-configuration \
+            --function-name ${{ secrets.LAMBDA_FUNCTION_NAME }} \
+            --environment "Variables={\
+              NODE_ENV=production,\
+              DATABASE_URL=${{ secrets.DATABASE_URL }},\
+              CLOUD_NAME=${{ secrets.CLOUD_NAME }},\
+              CLOUD_API_KEY=${{ secrets.CLOUD_API_KEY }},\
+              CLOUD_API_SECRET=${{ secrets.CLOUD_API_SECRET }},\
+              EMAIL_USER=${{ secrets.EMAIL_USER }},\
+              EMAIL_PASS=${{ secrets.EMAIL_PASS }}\
+              JWT_SECRET=${{ secrets.JWT_SECRET }}\
+            }"
+
+      - name: Deploy to AWS Lambda (with Exponential Backoff)
+        run: |
+          RETRY_DELAY=5
+          for i in {1..5}; do
+            if aws lambda update-function-code \
+              --function-name ${{ secrets.LAMBDA_FUNCTION_NAME }} \
+              --zip-file fileb://lambda.zip; then
+              echo "Lambda function updated successfully."
+              exit 0
+            fi
+            echo "Retrying in $RETRY_DELAY seconds..."
+            sleep $RETRY_DELAY
+            RETRY_DELAY=$((RETRY_DELAY * 2)) # Exponential backoff
+          done
+          echo "Lambda deployment failed after 5 attempts."
+          exit 1
