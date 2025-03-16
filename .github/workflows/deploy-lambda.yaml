@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18 # Change based on your Lambda runtime
+          node-version: 20 # Change based on your Lambda runtime
 
       - name: Install Dependencies
         run: npm ci --omit=dev # `npm ci` is faster and more reliable for CI/CD
