@@ -11,7 +11,7 @@ export const sendOTP = async (email, otp) => {
     });
 
     await transporter.sendMail({
-      from: `"Genoviq Admin" <${process.env.EMAIL_USER}>`,
+      from: `"Genoviq Healthcare Pvt. Ltd." <${process.env.EMAIL_ADMIN}>`,
       to: email,
       subject: "Your OTP for Genoviq Admin Panel",
       text: `Your OTP is ${otp}. Valid for 3 minutes.`,

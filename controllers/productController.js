@@ -9,8 +9,9 @@ export const addProduct = async (req, res) => {
   try {
     const images = await Promise.all(
       req.files.map(async (file) => {
-        const { croppedUrl } = await uploadToCloudinary(file.buffer);
-        return croppedUrl;
+        // const { croppedUrl } = await uploadToCloudinary(file.buffer);
+        const { url } = await uploadToCloudinary(file.buffer);
+        return url;
       })
     );
     const product = await Product.create({
@@ -57,8 +58,9 @@ export const updateProduct = async (req, res) => {
 
     const newUploadedImageUrls = await Promise.all(
       req.files.map(async (file) => {
-        const { croppedUrl } = await uploadToCloudinary(file.buffer);
-        return croppedUrl;
+        // const { croppedUrl } = await uploadToCloudinary(file.buffer);
+        const { url } = await uploadToCloudinary(file.buffer);
+        return url;
       })
     );
 

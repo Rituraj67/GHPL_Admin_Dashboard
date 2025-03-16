@@ -10,12 +10,13 @@ export const sendReply = async ({ email, subject, message, files }) => {
   });
 
   const mailOptions = {
-    from: process.env.EMAIL_USER,
+    from: `"Genoviq Healthcare" <${process.env.EMAIL_CONTACT}>`, 
     to: email,
     subject,
     text: message,
     attachments: [],
   };
+  
 
   if (files && files.length > 0) {
     mailOptions.attachments = files.map((file) => ({

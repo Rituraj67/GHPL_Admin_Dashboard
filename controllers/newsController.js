@@ -23,10 +23,13 @@ export const addNews = async (req, res) => {
     }
 
     if(req.file){
-        var { optimizedUrl } = await uploadToCloudinary(req.file.buffer);
+      const result = await uploadToCloudinary(req.file.buffer);
+      console.log(result);
+      // var {optimizedUrl}= result
+      var {url}= result
     }
 
-    const newItem = await News.create({ title, description, date, image: optimizedUrl });
+    const newItem = await News.create({ title, description, date, image: url });
     res.status(201).json(newItem);
   } catch (err) {
     res.status(400).json({ message: "Invalid data", error: err.message });
@@ -40,8 +43,11 @@ export const updateNews = async (req, res) => {
     const { title, description, date, existingImage } = req.body;
     let newImage= null;
     if(req.file){
-        const { optimizedUrl } = await uploadToCloudinary(req.file.buffer);
-        newImage= optimizedUrl;
+        const result = await uploadToCloudinary(req.file.buffer);
+        
+        // const {optimizedUrl}= result
+        const {url}= result
+        newImage= url;
     }
 
     if(!newImage){

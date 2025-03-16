@@ -16,7 +16,7 @@ functions:
           path: /{proxy+}
           method: any
           cors:
-            origin: 'https://ghpl-admin-dashboard.vercel.app'
+            origin: 'http://dashboard.genoviqhealthcare.com'
             headers:
               - Content-Type
               - X-Amz-Date
