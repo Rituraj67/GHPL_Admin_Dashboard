@@ -6,7 +6,7 @@ import { useProduct } from "../../context/ProductContext";
 export default function Dashboard() {
   const { products } = useProduct();
   const { news } = useNews();
-  const {usersCount}= useAuth()
+  const { usersCount } = useAuth();
 
   // Sort by createdAt descending and take the latest 3
   const recentProducts = [...products]
@@ -17,7 +17,6 @@ export default function Dashboard() {
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 3);
 
-    
   return (
     <AdminLayout>
       <div className="p-6">
@@ -120,78 +119,96 @@ export default function Dashboard() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Recent Products */}
           <div className="bg-white shadow rounded-lg overflow-hidden border">
             <div className="p-4 border-b">
-              <h2 className="text-lg font-semibold">Recent Products</h2>
+              <h2 className="text-lg font-semibold">🛒 Recent Products</h2>
               <p className="text-sm text-gray-500">
                 Latest products added to the catalog
               </p>
             </div>
             <div className="p-4">
-              <div className="space-y-4">
-                {recentProducts.map((product) => (
-                  <div
-                    key={product.id}
-                    className="flex items-center gap-4 p-2 hover:bg-gray-50 rounded-md"
-                  >
-                    <img
-                      src={product.images?.[0] || "/placeholder.svg"}
-                      alt={product.name}
-                      className="w-12 h-12 rounded-md object-cover"
-                    />
-                    <div>
-                      <div className=" flex items-center gap-2">
-                        <h4 className="font-medium">{product.name}</h4>
-                        <p className=" font-normal text-sm text-blue-600">
-                          ({product.type})
+              {recentProducts.length > 0 ? (
+                <div className="space-y-4">
+                  {recentProducts.map((product) => (
+                    <div
+                      key={product.id}
+                      className="flex items-center gap-4 p-2 hover:bg-gray-50 rounded-md"
+                    >
+                      <img
+                        src={product.images?.[0] || "/placeholder.svg"}
+                        alt={product.name}
+                        className="w-12 h-12 rounded-md object-cover"
+                      />
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <h4 className="font-medium">{product.name}</h4>
+                          <p className="font-normal text-sm text-blue-600">
+                            ({product.type})
+                          </p>
+                        </div>
+                        <p className="font-light text-sm text-green-600">
+                          {product.composition}
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          Added on{" "}
+                          {new Date(product.createdAt).toLocaleDateString()}
                         </p>
                       </div>
-                      <p className=" font-light text-sm text-green-600">
-                        {product.composition}
-                      </p>
-
-                      <p className="text-sm text-gray-500">
-                        Added on{" "}
-                        {new Date(product.createdAt).toLocaleDateString()}
-                      </p>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center text-gray-500 py-10">
+                  <p className="text-xl">🛍️ No recent products available</p>
+                  <p className="text-sm mt-1">
+                    Check back later for new additions.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 
+          {/* Recent News */}
           <div className="bg-white shadow rounded-lg overflow-hidden border">
             <div className="p-4 border-b">
-              <h2 className="text-lg font-semibold">Recent News</h2>
+              <h2 className="text-lg font-semibold">📰 Recent News</h2>
               <p className="text-sm text-gray-500">
                 Latest news articles published
               </p>
             </div>
             <div className="p-4">
-              <div className="space-y-4">
-                {recentNews.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex items-start gap-4 p-2 hover:bg-gray-50 rounded-md"
-                  >
-                    <img
-                      src={item.image || "/placeholder.svg"}
-                      alt={item.title}
-                      className="w-16 h-16 rounded-md object-cover"
-                    />
-                    <div>
-                      <h4 className="font-medium">{item.title}</h4>
-                      <p className="text-sm text-gray-600 mb-1 line-clamp-2">
-                        {item.description}
-                      </p>
-                      <p className="text-xs text-gray-400">
-                        Published on {new Date(item.date).toLocaleDateString()}
-                      </p>
+              {recentNews.length > 0 ? (
+                <div className="space-y-4">
+                  {recentNews.map((item) => (
+                    <div
+                      key={item.id}
+                      className="flex items-start gap-4 p-2 hover:bg-gray-50 rounded-md"
+                    >
+                      <img
+                        src={item.image || "/placeholder.svg"}
+                        alt={item.title}
+                        className="w-16 h-16 rounded-md object-cover"
+                      />
+                      <div>
+                        <h4 className="font-medium">{item.title}</h4>
+                        <p className="text-sm text-gray-600 mb-1 line-clamp-2">
+                          {item.description}
+                        </p>
+                        <p className="text-xs text-gray-400">
+                          Published on{" "}
+                          {new Date(item.date).toLocaleDateString()}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center text-gray-500 py-10">
+                  <p className="text-xl">📭 No recent news available</p>
+                  <p className="text-sm mt-1">Stay tuned for updates!</p>
+                </div>
+              )}
             </div>
           </div>
         </div>

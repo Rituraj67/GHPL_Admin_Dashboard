@@ -8,7 +8,7 @@ import axios from "../../config/axiosInstance";
 export default function AdminContact() {
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { contacts,updateContact } = useContact();
+  const { contacts, updateContact } = useContact();
   const getStatusColor = (status) => {
     switch (status) {
       case "New":
@@ -22,20 +22,18 @@ export default function AdminContact() {
     }
   };
 
-  const handleViewMessage =async (message) => {
+  const handleViewMessage = async (message) => {
     setSelectedMessage(message);
     setIsModalOpen(true);
-    if(message.status == "New"){
+    if (message.status == "New") {
       try {
-        const res= await axios.put(`/api/contact/mark-viewed/${message.id}`);
+        const res = await axios.put(`/api/contact/mark-viewed/${message.id}`);
         console.log(res);
-        updateContact(res.data.result)
+        updateContact(res.data.result);
       } catch (error) {
         console.log(error);
       }
     }
-
-    
   };
 
   const handleCloseModal = () => {
@@ -47,7 +45,6 @@ export default function AdminContact() {
 
     // Close the modal
     setIsModalOpen(false);
-
   };
 
   return (
@@ -129,39 +126,50 @@ export default function AdminContact() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {contacts.map((message) => (
-                  <tr key={message.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      {message.name}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm">
-                      {message.subject}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm hidden md:table-cell">
-                      {message.email}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm hidden md:table-cell">
-                      {new Date(message.createdAt).toLocaleDateString()}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span
-                        className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(
-                          message.status
-                        )}`}
-                      >
-                        {message.status}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button
-                        className=" text-blue-700 hover:text-blue-500 transition-colors"
-                        onClick={() => handleViewMessage(message)}
-                      >
-                        View
-                      </button>
+                {contacts.length === 0 ? (
+                  <tr>
+                    <td
+                      colSpan="6"
+                      className="px-6 py-8 text-center text-gray-500 text-sm"
+                    >
+                      No contact messages found.
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  contacts.map((message) => (
+                    <tr key={message.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        {message.name}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm">
+                        {message.subject}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm hidden md:table-cell">
+                        {message.email}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm hidden md:table-cell">
+                        {new Date(message.createdAt).toLocaleDateString()}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span
+                          className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(
+                            message.status
+                          )}`}
+                        >
+                          {message.status}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <button
+                          className=" text-blue-700 hover:text-blue-500 transition-colors"
+                          onClick={() => handleViewMessage(message)}
+                        >
+                          View
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
