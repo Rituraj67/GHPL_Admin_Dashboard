@@ -12,7 +12,7 @@ export function ContactProvider({ children }) {
     try {
         setLoading(true)
         const res= await axios.get("/api/contact/");
-        console.log(res);
+        
         setContacts(res.data)
     } catch (error) {
         console.log(error);

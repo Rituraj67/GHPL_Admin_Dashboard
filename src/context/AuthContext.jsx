@@ -17,7 +17,7 @@ export function AuthProvider({ children }) {
       try {
         setIsLoading(true)
         const res = await axios.post("/api/auth/refresh");
-        console.log(res);
+       
         if (res.status == 200) {
           
           setUser(res.data.name);

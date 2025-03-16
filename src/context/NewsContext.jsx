@@ -10,7 +10,7 @@ export function NewsProvider ({children}){
         try {
             setIsLoading(true)
             const res= await axios.get('/api/news/');
-            console.log(res);
+            
             setNews(res.data)
         } catch (error) {
             console.log(error);

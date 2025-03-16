@@ -28,7 +28,7 @@ export default function AdminContact() {
     if (message.status == "New") {
       try {
         const res = await axios.put(`/api/contact/mark-viewed/${message.id}`);
-        console.log(res);
+      
         updateContact(res.data.result);
       } catch (error) {
         console.log(error);
@@ -41,8 +41,6 @@ export default function AdminContact() {
   };
 
   const handleSendReply = (replyData) => {
-    console.log("Sending reply:", replyData);
-
     // Close the modal
     setIsModalOpen(false);
   };

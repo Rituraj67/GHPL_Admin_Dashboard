@@ -11,7 +11,6 @@ export function ProductProvider({children}){
     const getProducts= async()=>{
         try {
             setIsLoading(true)
-            console.log(import.meta.env.VITE_BASE_ADDRESS);
             const res= await axios.get('/api/products/');
             
             setproducts(res.data);

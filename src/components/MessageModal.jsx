@@ -50,10 +50,10 @@ const MessageModal = ({ message, onClose, onSendReply }) => {
       const res = await axios.post("/api/contact/send-reply", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      console.log(res);
+      
       if (res.status == 200) {
         mytoast("Replied successfully!");
-        console.log(res.data);
+       
         updateContact(res.data.result)
         onSendReply();
       }
