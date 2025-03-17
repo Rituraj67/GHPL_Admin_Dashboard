@@ -1,29 +1,27 @@
-"use client"
-
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { useAuth } from "../context/AuthContext"
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 
 export default function ProductCard({ product, index = 0, onEdit }) {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [isHovered, setIsHovered] = useState(false)
-  const {isAuthenticated}= useAuth()
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const { isAuthenticated } = useAuth();
   const nextImage = (e) => {
-    e.stopPropagation()
+    e.stopPropagation();
     if (product.images.length > 1) {
-      setCurrentImageIndex((prev) => (prev + 1) % product.images.length)
+      setCurrentImageIndex((prev) => (prev + 1) % product.images.length);
     }
-  }
+  };
 
   const prevImage = (e) => {
-    e.stopPropagation()
+    e.stopPropagation();
     if (product.images.length > 1) {
-      setCurrentImageIndex((prev) => (prev === 0 ? product.images.length - 1 : prev - 1))
+      setCurrentImageIndex((prev) =>
+        prev === 0 ? product.images.length - 1 : prev - 1
+      );
     }
-  }
-
-  
+  };
 
   return (
     <motion.div
@@ -82,10 +80,12 @@ export default function ProductCard({ product, index = 0, onEdit }) {
                 <motion.button
                   key={i}
                   onClick={(e) => {
-                    e.stopPropagation()
-                    setCurrentImageIndex(i)
+                    e.stopPropagation();
+                    setCurrentImageIndex(i);
                   }}
-                  className={`w-2 h-2 rounded-full ${i === currentImageIndex ? "bg-primary" : "bg-gray-300"}`}
+                  className={`w-2 h-2 rounded-full ${
+                    i === currentImageIndex ? "bg-primary" : "bg-gray-300"
+                  }`}
                   whileHover={{ scale: 1.3 }}
                 />
               ))}
@@ -94,24 +94,26 @@ export default function ProductCard({ product, index = 0, onEdit }) {
         )}
 
         {/* Edit Button */}
-        {isAuthenticated && <button
-          className="absolute top-2 right-2 p-1 rounded-md bg-white text-gray-700 hover:bg-gray-100 transition-colors"
-          onClick={() => onEdit(product)}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-4 w-4"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+        {isAuthenticated && (
+          <button
+            className="absolute top-2 right-2 p-1 rounded-md bg-white text-gray-700 hover:bg-gray-100 transition-colors"
+            onClick={() => onEdit(product)}
           >
-            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-          </svg>
-        </button>}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+            </svg>
+          </button>
+        )}
       </div>
 
       {/* Product Info */}
@@ -121,24 +123,38 @@ export default function ProductCard({ product, index = 0, onEdit }) {
         </h3>
 
         <div className="space-y-2  text-sm text-gray-700 flex-grow">
-          <DetailRow label="MRP:" value={`₹${product.mrp}`} highlight color={'text-red-700'} />
+          <DetailRow
+            label="MRP:"
+            value={`₹${product.mrp}`}
+            highlight
+            color={"text-red-700"}
+          />
           <DetailRow label="Type:" value={product.type} />
-          <DetailRow label="Division:" value={product.division} highlight color={'text-blue-700'} />
+          <DetailRow
+            label="Division:"
+            value={product.division}
+            highlight
+            color={"text-blue-700"}
+          />
           <DetailRow label="Packaging:" value={product.packaging} />
-          <DetailRow label="Composition:" value={product.composition} color={'text-green-700'} />
+          <DetailRow
+            label="Composition:"
+            value={product.composition}
+            color={"text-green-700"}
+          />
 
           {product.description && (
             <div>
               <p className="text-gray-500 font-medium mb-1">Description:</p>
-              <p className="text-gray-700 leading-relaxed text-sm bg-gray-50 p-2 rounded-md shadow-sm line-clamp-3">
+              <div className="text-gray-700 leading-relaxed text-sm bg-gray-50 p-2 rounded-md shadow-sm max-h-20 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
                 {product.description}
-              </p>
+              </div>
             </div>
           )}
         </div>
       </div>
     </motion.div>
-  )
+  );
 }
 
 const DetailRow = ({ label, value, highlight = false, color }) => {
@@ -155,4 +171,3 @@ const DetailRow = ({ label, value, highlight = false, color }) => {
     </div>
   );
 };
-

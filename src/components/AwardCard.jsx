@@ -29,7 +29,7 @@ export default function AwardCard({ award, onEdit }) {
 
       <div className="p-4">
         <h3 className="font-bold text-lg mb-2">{award.title}</h3>
-        <p className="text-gray-600">{award.description}</p>
+        <div className="text-gray-600 text-sm max-h-24 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 pr-1">{award.description}</div>
       </div>
     </div>
   )

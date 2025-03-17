@@ -1,10 +1,14 @@
-"use client"
+"use client";
 
 export default function MilestoneCard({ milestone, onEdit }) {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden border">
       <div className="relative">
-        <img src={milestone.image || "/placeholder.svg"} alt={milestone.title} className="w-full h-48 object-cover" />
+        <img
+          src={milestone.image || "/placeholder.svg"}
+          alt={milestone.title}
+          className="w-full h-48 object-cover"
+        />
         <div className="absolute top-0 left-0 bg-primary text-white px-4 py-2 rounded-br-lg font-bold">
           {milestone.year}
         </div>
@@ -30,9 +34,10 @@ export default function MilestoneCard({ milestone, onEdit }) {
 
       <div className="p-4">
         <h3 className="font-bold text-lg mb-2">{milestone.title}</h3>
-        <p className="text-gray-600">{milestone.description}</p>
+        <div className="text-gray-600 text-sm max-h-24 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 pr-1">
+          {milestone.description}
+        </div>
       </div>
     </div>
-  )
+  );
 }
-
