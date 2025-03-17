@@ -9,28 +9,34 @@ import authRoutes from './routes/authRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import newsRoutes from "./routes/newsRoutes.js"
 import contactRoutes from './routes/contactRoutes.js'
-// Load environment variables
+import testimonialRoute from './routes/testimonialRoutes.js'
+import milestoneRoute from "./routes/milestoneRoutes.js"
+import awardRoute from "./routes/awardRoutes.js"
+import directorRoute from "./routes/directorRoutes.js"
+
 dotenv.config();
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middlewares
 
-
-
 app.use(cors({ origin: process.env.ALLOWED_ORIGIN, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Routes
 
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/news', newsRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/testimonial', testimonialRoute)
+app.use('/api/milestone', milestoneRoute)
+app.use('/api/award', awardRoute)
+app.use('/api/director', directorRoute)
 
 // Health check
 app.get("/", (req, res) => res.send("Express App is Running..."));
