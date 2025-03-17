@@ -2,8 +2,8 @@
 
 export default function TestimonialCard({ testimonial, onEdit }) {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden border">
-      <div className="p-6">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden border relative">
+      <div className="p-6 ">
         <div className="flex flex-col items-center mb-4">
           <img
             src={testimonial.profilePicture || "/placeholder.svg"}
@@ -26,7 +26,7 @@ export default function TestimonialCard({ testimonial, onEdit }) {
           <p className="text-gray-600 italic pl-6 pr-2 mb-4">{testimonial.message}</p>
         </div>
 
-        <div className="flex justify-end">
+        <div className="flex justify-end absolute bottom-2 right-4">
           <button
             onClick={() => onEdit(testimonial)}
             className="text-primary hover:text-primary/80 flex items-center gap-1"
