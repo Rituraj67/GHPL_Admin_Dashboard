@@ -8,15 +8,27 @@ import LoginPage from "./pages/LoginPage";
 import ProductsPage from "./pages/ProductsPage";
 import NewsroomPage from "./pages/NewsroomPage";
 import ContactPage from "./pages/ContactPage";
+import TestimonialsPage from "./pages/TestimonialsPage"
+import MilestonesPage from "./pages/MilestonesPage"
+import AwardsPage from "./pages/AwardsPage"
+import DirectorsPage from "./pages/DirectorsPage"
 // Admin Pages
 import Dashboard from "./pages/admin/Dashboard";
 import AdminProducts from "./pages/admin/Products";
 import AdminNewsroom from "./pages/admin/Newsroom";
 import AdminContact from "./pages/admin/Contact";
+import AdminTestimonials from "./pages/admin/Testimonials"
+import AdminMilestones from "./pages/admin/Milestones"
+import AdminAwards from "./pages/admin/Awards"
+import AdminDirectors from "./pages/admin/Directors"
 import { useProduct } from "./context/ProductContext";
 import Loader from "./components/Loader";
 import { useNews } from "./context/NewsContext";
 import { useContact } from "./context/ContactContext";
+import { useDirectors } from "./context/DirectorContext";
+import { useAwards } from "./context/AwardContext";
+import { useMilestones } from "./context/MilestoneContext";
+import { useTestimonials } from "./context/TestimonialContext";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -35,8 +47,12 @@ function App() {
   const {isLoading2}= useProduct();
   const {isLoading3} = useNews();
   const {isLoading4}= useContact();
+  const {isLoadingDirector} = useDirectors()
+  const {isLoadingAward} =useAwards()
+  const {isLoadingMilestone}= useMilestones()
+  const {isLoadingTestimonial}= useTestimonials()
 
-  if(isLoading1 || isLoading2 || isLoading3 || isLoading4) return <Loader/>
+  if(isLoading1 || isLoading2 || isLoading3 || isLoading4 || isLoadingTestimonial || isLoadingMilestone || isLoadingAward || isLoadingDirector) return <Loader/>
 
   return (
     <>
@@ -46,8 +62,11 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/newsroom" element={<NewsroomPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-
+        {/* <Route path="/contact" element={<ContactPage />} /> */}
+        <Route path="/testimonials" element={<TestimonialsPage />} />
+      <Route path="/milestones" element={<MilestonesPage />} />
+      <Route path="/awards" element={<AwardsPage />} />
+      <Route path="/directors" element={<DirectorsPage />} />
         {/* Admin Routes */}
         <Route
           path="/admin"
@@ -81,6 +100,38 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+        path="/admin/testimonials"
+        element={
+          <ProtectedRoute>
+            <AdminTestimonials />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/milestones"
+        element={
+          <ProtectedRoute>
+            <AdminMilestones />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/awards"
+        element={
+          <ProtectedRoute>
+            <AdminAwards />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/directors"
+        element={
+          <ProtectedRoute>
+            <AdminDirectors />
+          </ProtectedRoute>
+        }
+      />
 
         {/* Catch-all route */}
         <Route path="*" element={<Navigate to="/" replace />} />

@@ -36,6 +36,10 @@ export default function AdminLayout({ children }) {
     { name: "Dashboard", href: "/admin", icon: "home" },
     { name: "Products", href: "/admin/products", icon: "package" },
     { name: "Newsroom", href: "/admin/newsroom", icon: "file-text" },
+    { name: "Testimonials", href: "/admin/testimonials", icon: "message-square" },
+    { name: "Milestones", href: "/admin/milestones", icon: "flag" },
+    { name: "Awards", href: "/admin/awards", icon: "award" },
+    { name: "Directors", href: "/admin/directors", icon: "users" },
     { name: "Contact", href: "/admin/contact", icon: "mail" },
   ]
 
@@ -111,6 +115,71 @@ export default function AdminLayout({ children }) {
             <polyline points="22,6 12,13 2,6"></polyline>
           </svg>
         )
+        case "message-square":
+        return (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+        )
+      case "flag":
+        return (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+            <line x1="4" y1="22" x2="4" y2="15"></line>
+          </svg>
+        )
+      case "award":
+        return (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="12" cy="8" r="7"></circle>
+            <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+          </svg>
+        )
+      case "users":
+        return (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+        )
       default:
         return null
     }
@@ -137,7 +206,7 @@ export default function AdminLayout({ children }) {
         </button>
 
         <Link to="/admin" className="flex items-center gap-2 lg:ml-0">
-          <img src={logo} alt="PharmaCorp Logo" className="h-20" />
+          <img src={logo} alt="Genoviq Logo" className="h-20" />
           {/* <span className="font-bold text-xl hidden md:inline-block">Administration Panel</span> */}
         </Link>
 
@@ -231,7 +300,7 @@ export default function AdminLayout({ children }) {
             <div className="fixed inset-y-0 left-0 w-64 bg-white border-r overflow-y-auto">
               <div className="flex items-center h-16 px-6 border-b">
                 <Link to="/admin" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
-                  <img src={logo} alt="PharmaCorp Logo" className="h-12 mr-2" />
+                  <img src={logo} alt="Genoviq Logo" className="h-12 mr-2" />
                   {/* <span className="font-bold text-xl">PharmaCorp</span> */}
                 </Link>
               </div>

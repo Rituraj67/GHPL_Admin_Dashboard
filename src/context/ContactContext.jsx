@@ -1,13 +1,14 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 import axios from "../config/axiosInstance.js"
+import { useAuth } from "./AuthContext.jsx";
 
 const ContactContext = createContext(null);
 
 export function ContactProvider({ children }) {
   const [contacts, setContacts] = useState([]);
   const [loading4, setLoading] = useState(false)
-
+  const {isAuthenticated}= useAuth()
   const getAllContact=async()=>{
     try {
         setLoading(true)
@@ -23,7 +24,7 @@ export function ContactProvider({ children }) {
 
   useEffect(() => {
     getAllContact();
-  }, []);
+  }, [isAuthenticated]);
 
   const updateContact = (data) => {
     setContacts((prevContact) =>

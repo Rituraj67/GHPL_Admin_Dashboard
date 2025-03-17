@@ -2,25 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import { AuthProvider } from "./context/AuthContext";
 import "./index.css";
-import { ProductProvider } from "./context/ProductContext";
-import { NewsProvider } from "./context/NewsContext";
-import { ContactProvider } from "./context/ContactContext";
-
+import AppProviders from "./context/AppProviders";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <ProductProvider>
-          <NewsProvider>
-            <ContactProvider>
-              <App />
-            </ContactProvider>
-          </NewsProvider>
-        </ProductProvider>
-      </AuthProvider>
+      <AppProviders>
+        <App />
+      </AppProviders>
     </BrowserRouter>
   </React.StrictMode>
 );

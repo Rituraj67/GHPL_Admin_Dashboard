@@ -28,7 +28,7 @@ export default function PublicLayout({ children }) {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-6">
+            <nav className="hidden md:flex items-center space-x-4 lg:space-x-6">
               <Link to="/" className="text-sm font-medium hover:text-primary transition-colors">
                 Home
               </Link>
@@ -37,6 +37,18 @@ export default function PublicLayout({ children }) {
               </Link>
               <Link to="/newsroom" className="text-sm font-medium hover:text-primary transition-colors">
                 Newsroom
+              </Link>
+              <Link to="/testimonials" className="text-sm font-medium hover:text-primary transition-colors">
+                Testimonials
+              </Link>
+              <Link to="/milestones" className="text-sm font-medium hover:text-primary transition-colors">
+                Milestones
+              </Link>
+              <Link to="/awards" className="text-sm font-medium hover:text-primary transition-colors">
+                Awards
+              </Link>
+              <Link to="/directors" className="text-sm font-medium hover:text-primary transition-colors">
+                Directors
               </Link>
               {/* <Link to="/contact" className="text-sm font-medium hover:text-primary transition-colors">
                 Contact
@@ -104,9 +116,21 @@ export default function PublicLayout({ children }) {
               <Link to="/newsroom" className="block py-2 text-sm font-medium hover:text-primary transition-colors">
                 Newsroom
               </Link>
-              <Link to="/contact" className="block py-2 text-sm font-medium hover:text-primary transition-colors">
-                Contact
+              <Link to="/testimonials" className="block py-2 text-sm font-medium hover:text-primary transition-colors">
+                Testimonials
               </Link>
+              <Link to="/milestones" className="block py-2 text-sm font-medium hover:text-primary transition-colors">
+                Milestones
+              </Link>
+              <Link to="/awards" className="block py-2 text-sm font-medium hover:text-primary transition-colors">
+                Awards
+              </Link>
+              <Link to="/directors" className="block py-2 text-sm font-medium hover:text-primary transition-colors">
+                Directors
+              </Link>
+              {/* <Link to="/contact" className="block py-2 text-sm font-medium hover:text-primary transition-colors">
+                Contact
+              </Link> */}
               {isAuthenticated ? (
                 <>
                   <Link to="/admin" className="block py-2 text-sm font-medium hover:text-primary transition-colors">
@@ -172,7 +196,7 @@ export default function PublicLayout({ children }) {
               <address className="not-italic text-muted-foreground">
                 <p>123 Pharma Street</p>
                 <p>Medical District, MD 12345</p>
-                <p>Email: info@pharmacorp.com</p>
+                <p>Email: contact@genoviqhealthcare.com</p>
                 <p>Phone: (123) 456-7890</p>
               </address>
             </div>

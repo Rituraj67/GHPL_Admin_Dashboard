@@ -181,7 +181,7 @@ export default function ContactPage() {
                   </svg>
                   <div>
                     <p className="font-semibold">Email</p>
-                    <p>info@pharmacorp.com</p>
+                    <p>contact@genoviqhealthcare.com</p>
                   </div>
                 </div>
 
