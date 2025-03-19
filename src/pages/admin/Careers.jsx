@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from "react";
 import AdminLayout from "../../components/layouts/AdminLayout";
-import JobForm from "../../components/careers/JobForm";
-
 import { motion, AnimatePresence } from "framer-motion";
-import JobCard from "../../components/careers/jobCard";
 import { useCareers } from "../../context/CareerContext";
 import axios from "../../config/axiosInstance";
+import JobCard from "../../components/JobCard";
+import JobForm from "../../components/JobForm";
+
 
 // Mock data for jobs
 

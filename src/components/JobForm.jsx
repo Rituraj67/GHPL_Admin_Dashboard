@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import axios from "../../config/axiosInstance";
+import axios from "../config/axiosInstance";
 
 const employmentTypes = ["Full-time", "Part-time", "Internship", "Contract"];
 
