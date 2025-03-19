@@ -6,7 +6,7 @@ import News from "../models/News.js";
 export const getAllNews = async (req, res) => {
   try {
     const news = await News.findAll({ order: [["date", "DESC"]] });
-    res.json(news);
+    res.status(200).json(news);
   } catch (err) {
     res.status(500).json({ message: "Server Error", error: err.message });
   }

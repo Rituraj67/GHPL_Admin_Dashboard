@@ -7,8 +7,8 @@ import Testimonial from "./Testimonial.js"
 import Award from "./Award.js"
 import Milestone from "./Milestone.js"
 import Director from "./Director.js"
-
+import Job from "./Job.js";
 
 
 export default sequelize;
-export { User, Product, News, Contact, Testimonial, Award, Milestone, Director };
+export { User, Product, News, Contact, Testimonial, Award, Milestone, Director, Job };

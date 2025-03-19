@@ -4,7 +4,7 @@ import Milestone from "../models/Milestone.js";
 export const getAllMilestones = async (req, res) => {
   try {
     const data = await Milestone.findAll();
-    res.json(data);
+    res.status(200).json(data);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

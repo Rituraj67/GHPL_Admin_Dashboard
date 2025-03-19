@@ -5,7 +5,7 @@ import Director from "../models/Director.js";
 export const getAllDirectors = async (req, res) => {
   try {
     const directors = await Director.findAll();
-    res.json(directors);
+    res.status(200).json(directors);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

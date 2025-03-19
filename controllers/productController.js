@@ -32,7 +32,7 @@ export const addProduct = async (req, res) => {
 };
 
 export const getProducts = async (req, res) => {
-  const products = await Product.findAll();
+  const products = await Product.findAll({order: [["createdAt", "DESC"]],});
   res.status(200).json(products);
 };
 
