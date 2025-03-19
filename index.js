@@ -75,7 +75,7 @@ if (process.env.IS_OFFLINE || process.env.NODE_ENV !== "production") {
     try {
       await sequelize.authenticate();
       console.log("✅ PostgreSQL connected via Sequelize");
-      await sequelize.sync({alter: true});
+      await sequelize.sync();
       console.log("✅ Database synced");
     } catch (err) {
       console.error("❌ DB error:", err);
