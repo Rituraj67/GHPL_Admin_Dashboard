@@ -33,17 +33,24 @@ export default function AdminProducts() {
   };
 
   const openEditForm = (product) => {
-    setIsAddFormVisible(false);       // 🔒 Ensure Add Form is closed
+    setIsAddFormVisible(false); // 🔒 Ensure Add Form is closed
     setCurrentProduct(product);
-    setIsEditFormVisible(true);       // ✅ Open Edit Form
+    setIsEditFormVisible(true); // ✅ Open Edit Form
+
+    // Delay scroll until form is rendered
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }, 100); // Adjust timing if needed
   };
 
   const openAddForm = () => {
-    setIsEditFormVisible(false);      // 🔒 Ensure Edit Form is closed
-    setCurrentProduct(null);          // Reset any selected product
-    setIsAddFormVisible(true);        // ✅ Open Add Form
+    setIsEditFormVisible(false); // 🔒 Ensure Edit Form is closed
+    setCurrentProduct(null); // Reset any selected product
+    setIsAddFormVisible(true); // ✅ Open Add Form
   };
-
 
   return (
     <AdminLayout>
@@ -106,7 +113,6 @@ export default function AdminProducts() {
                 index={index}
                 product={product}
                 onEdit={openEditForm}
-                
               />
             ))}
           </div>

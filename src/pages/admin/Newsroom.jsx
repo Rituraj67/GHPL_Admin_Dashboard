@@ -13,9 +13,9 @@ export default function AdminNewsroom() {
   const currentYear = new Date().getFullYear();
   const availableYears = [
     "All",
-    ...[...new Set(news?.map((item) => new Date(item.date).getFullYear()))].sort(
-      (a, b) => b - a
-    ),
+    ...[
+      ...new Set(news?.map((item) => new Date(item.date).getFullYear())),
+    ].sort((a, b) => b - a),
   ];
   const [selectedYear, setSelectedYear] = useState("All");
 
@@ -57,6 +57,14 @@ export default function AdminNewsroom() {
     setIsAddFormVisible(false);
     setCurrentNews(newsItem);
     setIsEditFormVisible(true);
+
+    // Delay scroll until form is rendered
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }, 100); // Adjust timing if needed
   };
 
   return (

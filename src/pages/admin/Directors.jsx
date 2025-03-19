@@ -1,47 +1,52 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import AdminLayout from "../../components/layouts/AdminLayout"
-import DirectorForm from "../../components/DirectorForm"
-import DirectorCard from "../../components/DirectorCard"
-import { useDirectors } from "../../context/DirectorContext"
-
-
+import { useState } from "react";
+import AdminLayout from "../../components/layouts/AdminLayout";
+import DirectorForm from "../../components/DirectorForm";
+import DirectorCard from "../../components/DirectorCard";
+import { useDirectors } from "../../context/DirectorContext";
 
 export default function AdminDirectors() {
-  const { directors, addDirector, updateDirector}= useDirectors();
-  const [isAddFormVisible, setIsAddFormVisible] = useState(false)
-  const [isEditFormVisible, setIsEditFormVisible] = useState(false)
-  const [currentDirector, setCurrentDirector] = useState(null)
+  const { directors, addDirector, updateDirector } = useDirectors();
+  const [isAddFormVisible, setIsAddFormVisible] = useState(false);
+  const [isEditFormVisible, setIsEditFormVisible] = useState(false);
+  const [currentDirector, setCurrentDirector] = useState(null);
 
   const handleAddDirector = (newDirector) => {
     if (!newDirector) {
-      setIsAddFormVisible(false)
-      return
+      setIsAddFormVisible(false);
+      return;
     }
-    addDirector(newDirector)
-    setIsAddFormVisible(false)
-  }
+    addDirector(newDirector);
+    setIsAddFormVisible(false);
+  };
 
   const handleEditDirector = (updatedDirector) => {
     if (!updatedDirector) {
-      setIsEditFormVisible(false)
-      setCurrentDirector(null)
-      return
+      setIsEditFormVisible(false);
+      setCurrentDirector(null);
+      return;
     }
-    updateDirector(updatedDirector)
+    updateDirector(updatedDirector);
 
-    setIsEditFormVisible(false)
-    setCurrentDirector(null)
-  }
+    setIsEditFormVisible(false);
+    setCurrentDirector(null);
+  };
 
   const openEditForm = (director) => {
-    if(isAddFormVisible){
-      setIsAddFormVisible(false)
+    if (isAddFormVisible) {
+      setIsAddFormVisible(false);
     }
-    setCurrentDirector(director)
-    setIsEditFormVisible(true)
-  }
+    setCurrentDirector(director);
+    setIsEditFormVisible(true);
+    // Delay scroll until form is rendered
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }, 100); // Adjust timing if needed
+  };
 
   return (
     <AdminLayout>
@@ -50,9 +55,9 @@ export default function AdminDirectors() {
           <h1 className="text-3xl font-bold">Board of Directors</h1>
           <button
             onClick={() => {
-              setIsAddFormVisible(true)
-              setIsEditFormVisible(false)
-              }}
+              setIsAddFormVisible(true);
+              setIsEditFormVisible(false);
+            }}
             className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors flex items-center gap-2"
           >
             <svg
@@ -76,7 +81,10 @@ export default function AdminDirectors() {
         {isAddFormVisible && (
           <div className="mb-8 bg-white p-6 rounded-lg shadow border">
             <h2 className="text-xl font-bold mb-4">Add New Director</h2>
-            <DirectorForm onSubmit={handleAddDirector} onCancel={() => setIsAddFormVisible(false)} />
+            <DirectorForm
+              onSubmit={handleAddDirector}
+              onCancel={() => setIsAddFormVisible(false)}
+            />
           </div>
         )}
 
@@ -89,8 +97,8 @@ export default function AdminDirectors() {
               onSubmit={handleEditDirector}
               isEditing={true}
               onCancel={() => {
-                setIsEditFormVisible(false)
-                setCurrentDirector(null)
+                setIsEditFormVisible(false);
+                setCurrentDirector(null);
               }}
             />
           </div>
@@ -98,17 +106,22 @@ export default function AdminDirectors() {
 
         <div className="grid grid-cols-1 gap-6">
           {directors.map((director) => (
-            <DirectorCard key={director.id} director={director} onEdit={openEditForm} />
+            <DirectorCard
+              key={director.id}
+              director={director}
+              onEdit={openEditForm}
+            />
           ))}
         </div>
 
         {directors.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-500">No directors found. Add your first director!</p>
+            <p className="text-gray-500">
+              No directors found. Add your first director!
+            </p>
           </div>
         )}
       </div>
     </AdminLayout>
-  )
+  );
 }
-

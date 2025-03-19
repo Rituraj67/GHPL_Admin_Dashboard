@@ -41,6 +41,14 @@ export default function AdminMilestones() {
     }
     setCurrentMilestone(milestone);
     setIsEditFormVisible(true);
+
+    // Delay scroll until form is rendered
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }, 100); // Adjust timing if needed
   };
 
   return (

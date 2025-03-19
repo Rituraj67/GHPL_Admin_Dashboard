@@ -32,7 +32,6 @@ export default function AdminAwards() {
   };
 
   const handleEditAward = (updatedAward) => {
-    
     if (updatedAward) updateAward(updatedAward);
     setIsEditFormVisible(false);
     setCurrentAward(null);
@@ -44,6 +43,13 @@ export default function AdminAwards() {
       setIsAddFormVisible(false);
     }
     setIsEditFormVisible(true);
+    // Delay scroll until form is rendered
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }, 100); // Adjust timing if needed
   };
 
   return (
@@ -52,8 +58,10 @@ export default function AdminAwards() {
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold">Awards & Recognition</h1>
           <button
-            onClick={() => {setIsAddFormVisible(true) 
-            setIsEditFormVisible(false)}}
+            onClick={() => {
+              setIsAddFormVisible(true);
+              setIsEditFormVisible(false);
+            }}
             className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors flex items-center gap-2"
           >
             <svg

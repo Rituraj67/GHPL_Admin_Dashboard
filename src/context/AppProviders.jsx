@@ -8,6 +8,7 @@ import { TestimonialProvider } from "./TestimonialContext";
 import { AwardProvider } from "./AwardContext";
 import { MilestoneProvider } from "./MilestoneContext";
 import { DirectorProvider } from "./DirectorContext";
+import { CareerProvider } from "./CareerContext";
 
 const AppProviders = ({ children }) => {
   return (
@@ -19,7 +20,7 @@ const AppProviders = ({ children }) => {
               <AwardProvider>
                 <MilestoneProvider>
                   <DirectorProvider>
-                    {children}
+                    <CareerProvider>{children}</CareerProvider>
                   </DirectorProvider>
                 </MilestoneProvider>
               </AwardProvider>

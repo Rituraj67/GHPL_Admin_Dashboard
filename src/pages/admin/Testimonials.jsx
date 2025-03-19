@@ -1,44 +1,50 @@
-import { useState } from "react"
-import AdminLayout from "../../components/layouts/AdminLayout"
-import TestimonialForm from "../../components/TestimonialForm"
-import TestimonialCard from "../../components/TestimonialCard"
-import { useTestimonials } from "../../context/TestimonialContext"
-
-
+import { useState } from "react";
+import AdminLayout from "../../components/layouts/AdminLayout";
+import TestimonialForm from "../../components/TestimonialForm";
+import TestimonialCard from "../../components/TestimonialCard";
+import { useTestimonials } from "../../context/TestimonialContext";
 
 export default function AdminTestimonials() {
-  const {testimonials, addTestimonial, updateTestimonial}= useTestimonials()
-  const [isAddFormVisible, setIsAddFormVisible] = useState(false)
-  const [isEditFormVisible, setIsEditFormVisible] = useState(false)
-  const [currentTestimonial, setCurrentTestimonial] = useState(null)
+  const { testimonials, addTestimonial, updateTestimonial } = useTestimonials();
+  const [isAddFormVisible, setIsAddFormVisible] = useState(false);
+  const [isEditFormVisible, setIsEditFormVisible] = useState(false);
+  const [currentTestimonial, setCurrentTestimonial] = useState(null);
 
   const handleAddTestimonial = (newTestimonial) => {
     if (!newTestimonial) {
-      setIsAddFormVisible(false)
-      return
+      setIsAddFormVisible(false);
+      return;
     }
-    addTestimonial(newTestimonial)
-    setIsAddFormVisible(false)
-  }
+    addTestimonial(newTestimonial);
+    setIsAddFormVisible(false);
+  };
 
   const handleEditTestimonial = (updatedTestimonial) => {
     if (!updatedTestimonial) {
-      setIsEditFormVisible(false)
-      setCurrentTestimonial(null)
-      return
+      setIsEditFormVisible(false);
+      setCurrentTestimonial(null);
+      return;
     }
-    updateTestimonial(updatedTestimonial)
-    setIsEditFormVisible(false)
-    setCurrentTestimonial(null)
-  }
+    updateTestimonial(updatedTestimonial);
+    setIsEditFormVisible(false);
+    setCurrentTestimonial(null);
+  };
 
   const openEditForm = (testimonial) => {
-    if(isAddFormVisible){
-      setIsAddFormVisible(false)
+    if (isAddFormVisible) {
+      setIsAddFormVisible(false);
     }
-    setCurrentTestimonial(testimonial)
-    setIsEditFormVisible(true)
-  }
+    setCurrentTestimonial(testimonial);
+    setIsEditFormVisible(true);
+
+    // Delay scroll until form is rendered
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }, 100); // Adjust timing if needed
+  };
 
   return (
     <AdminLayout>
@@ -46,8 +52,9 @@ export default function AdminTestimonials() {
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold">Testimonials</h1>
           <button
-            onClick={() => {setIsAddFormVisible(true)
-                            setIsEditFormVisible(false)
+            onClick={() => {
+              setIsAddFormVisible(true);
+              setIsEditFormVisible(false);
             }}
             className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors flex items-center gap-2"
           >
@@ -72,7 +79,10 @@ export default function AdminTestimonials() {
         {isAddFormVisible && (
           <div className="mb-8 bg-white p-6 rounded-lg shadow border">
             <h2 className="text-xl font-bold mb-4">Add New Testimonial</h2>
-            <TestimonialForm onSubmit={handleAddTestimonial} onCancel={() => setIsAddFormVisible(false)} />
+            <TestimonialForm
+              onSubmit={handleAddTestimonial}
+              onCancel={() => setIsAddFormVisible(false)}
+            />
           </div>
         )}
 
@@ -85,8 +95,8 @@ export default function AdminTestimonials() {
               onSubmit={handleEditTestimonial}
               isEditing={true}
               onCancel={() => {
-                setIsEditFormVisible(false)
-                setCurrentTestimonial(null)
+                setIsEditFormVisible(false);
+                setCurrentTestimonial(null);
               }}
             />
           </div>
@@ -94,17 +104,22 @@ export default function AdminTestimonials() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((testimonial) => (
-            <TestimonialCard key={testimonial.id} testimonial={testimonial} onEdit={openEditForm} />
+            <TestimonialCard
+              key={testimonial.id}
+              testimonial={testimonial}
+              onEdit={openEditForm}
+            />
           ))}
         </div>
 
         {testimonials.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-500">No testimonials found. Add your first testimonial!</p>
+            <p className="text-gray-500">
+              No testimonials found. Add your first testimonial!
+            </p>
           </div>
         )}
       </div>
     </AdminLayout>
-  )
+  );
 }
-
