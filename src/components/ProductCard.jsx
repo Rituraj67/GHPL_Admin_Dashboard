@@ -136,12 +136,16 @@ export default function ProductCard({ product, index = 0, onEdit }) {
             highlight
             color={"text-blue-700"}
           />
-          <DetailRow label="Packaging:" value={product.packaging} />
-          <DetailRow
-            label="Composition:"
-            value={product.composition}
-            color={"text-green-700"}
-          />
+          {product.composition && (
+            <div className="">
+              <span className="text-gray-500 font-medium w-24">
+                Composition:
+              </span>
+              <div className="text-green-700 font-semibold max-h-20 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 rounded p-1">
+                {product.composition}
+              </div>
+            </div>
+          )}
 
           {product.description && (
             <div>
