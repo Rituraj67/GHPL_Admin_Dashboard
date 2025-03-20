@@ -123,13 +123,18 @@ export default function ProductCard({ product, index = 0, onEdit }) {
         </h3>
 
         <div className="space-y-2  text-sm text-gray-700 flex-grow">
-          <DetailRow
+          {/* <DetailRow
             label="MRP:"
             value={`₹${product.mrp}`}
             highlight
             color={"text-red-700"}
+          /> */}
+          <DetailRow
+            label="Type:"
+            highlight
+            color={"text-red-700"}
+            value={product.type}
           />
-          <DetailRow label="Type:" value={product.type} />
           <DetailRow
             label="Division:"
             value={product.division}

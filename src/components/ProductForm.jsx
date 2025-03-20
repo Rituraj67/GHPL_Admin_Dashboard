@@ -7,7 +7,6 @@ import { useProduct } from "../context/ProductContext"
 export default function ProductForm({ initialData = null, onSubmit, isEditing = false, onCancel }) {
   const [formData, setFormData] = useState({
     name: initialData?.name || "",
-    mrp: initialData?.mrp || "",
     composition: initialData?.composition || "",
     description: initialData?.description || "",
     division: initialData?.division || "",
@@ -60,7 +59,9 @@ export default function ProductForm({ initialData = null, onSubmit, isEditing = 
     "Patch",
     "Drop",
     "Gel",
-  ]
+    "Mouthwash", // ✅ Added
+  ];
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -175,21 +176,7 @@ export default function ProductForm({ initialData = null, onSubmit, isEditing = 
           />
         </div>
 
-        <div className="space-y-2">
-          <label htmlFor="mrp" className="block text-sm font-medium text-gray-700">
-            MRP (₹)
-          </label>
-          <input
-            id="mrp"
-            name="mrp"
-            type="number"
-           
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-            value={formData.mrp}
-            onChange={handleChange}
-            required
-          />
-        </div>
+        
 
         <div className="space-y-2">
           <label htmlFor="division" className="block text-sm font-medium text-gray-700">
