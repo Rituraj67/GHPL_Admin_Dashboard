@@ -2,9 +2,9 @@ import { uploadToCloudinary } from "../config/cloudinary.js";
 import Product from "../models/Product.js";
 
 export const addProduct = async (req, res) => {
-  const { name, composition, division, mrp, description, packaging, type } =
+  const { name, composition, division, description, packaging, type } =
     req.body;
-  console.log(name, composition, division, mrp, description, packaging, type);
+  console.log(name, composition, division, description, packaging, type);
 
   try {
     const images = await Promise.all(
@@ -18,7 +18,6 @@ export const addProduct = async (req, res) => {
       name,
       composition,
       division,
-      mrp,
       images,
       description,
       packaging,
@@ -41,7 +40,6 @@ export const updateProduct = async (req, res) => {
     const { id } = req.params;
     const {
       name,
-      mrp,
       composition,
       description,
       division,
@@ -72,7 +70,6 @@ export const updateProduct = async (req, res) => {
     const updatedProduct = await Product.update(
       {
         name,
-        mrp,
         composition,
         description,
         division,
