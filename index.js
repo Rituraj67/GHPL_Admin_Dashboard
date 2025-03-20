@@ -21,13 +21,11 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middlewares
-
 const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",") || [];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps, curl, postman, etc.)
       if (!origin) return callback(null, true);
       if (allowedOrigins.includes(origin)) {
         callback(null, true);
@@ -58,30 +56,22 @@ app.use("/api/jobs", jobRoutes);
 app.get("/", (req, res) => res.send("Express App is Running..."));
 app.get("/health", (req, res) => res.send("Express App is Running..."));
 
-// // Test DB connection
-// try {
-//   await sequelize.authenticate();
-//   console.log('✅ PostgreSQL connected via Sequelize');
+// Connect to DB
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("✅ PostgreSQL connected via Sequelize");
 
-//   await sequelize.sync({ alter: true, force: false }); // force: false by default
-//   console.log('✅ Database synced');
-// } catch (err) {
-//   console.error('❌ Unable to connect or sync DB:', err);
-// }
-
-// Only initialize DB when NOT in Lambda
-if (process.env.IS_OFFLINE || process.env.NODE_ENV !== "production") {
-  (async () => {
-    try {
-      await sequelize.authenticate();
-      console.log("✅ PostgreSQL connected via Sequelize");
+    if (process.env.IS_OFFLINE || process.env.NODE_ENV === "development") {
       await sequelize.sync();
       console.log("✅ Database synced");
-    } catch (err) {
-      console.error("❌ DB error:", err);
+    } else {
+      console.log("⚠️ Skipping sequelize.sync() in production.");
     }
-  })();
-}
+  } catch (err) {
+    console.error("❌ DB connection error:", err);
+  }
+})();
 
 // Start server
 app.listen(PORT, () => {

@@ -36,10 +36,10 @@ const Product = sequelize.define("Product", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  mrp: {
-    type: DataTypes.FLOAT,
-    allowNull: false,
-  },
+  // mrp: {
+  //   type: DataTypes.FLOAT,
+  //   allowNull: false,
+  // },
 },
 {
   timestamps: true, // includes createdAt and updatedAt
