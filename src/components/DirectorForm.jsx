@@ -90,7 +90,7 @@ export default function DirectorForm({
         );
       }
 
-      console.log("Director data submitted:", res.data);
+      
       onSubmit(res.data);
     } catch (error) {
       console.error("Error submitting director data:", error);

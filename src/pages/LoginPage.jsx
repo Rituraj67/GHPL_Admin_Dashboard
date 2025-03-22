@@ -47,7 +47,7 @@ export default function LoginPage() {
       }
     } catch (err) {
       setError("Failed to send OTP. Try again.");
-      console.log(error);
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
@@ -70,7 +70,7 @@ export default function LoginPage() {
       }
     } catch (error) {
       setError("Invalid OTP. Please try again.");
-      console.log(error);
+      console.error(error);
     } finally {
       setIsLoading(false);
     }

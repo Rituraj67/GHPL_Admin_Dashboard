@@ -78,7 +78,7 @@ export default function AwardForm({ initialData = null, onSubmit, isEditing = fa
             }
           })
       }
-      console.log("Award submitted successfully:", res.data)
+      
       onSubmit(res.data)
     } catch (error) {
       console.error("Error submitting award:", error)

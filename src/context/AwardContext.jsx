@@ -13,7 +13,7 @@ export function AwardProvider({ children }) {
       const res = await axios.get("/api/award/");
       setAwards(res.data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setIsLoading(false);
     }

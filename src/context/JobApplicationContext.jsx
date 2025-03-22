@@ -11,7 +11,6 @@ export function JobApplicationProvider({ children }) {
     try {
       setIsLoadingApplications(true);
       const res = await axios.get("/api/jobs/applications");
-      console.log(res);
       setApplications(res.data);
     } catch (error) {
       console.error("Error fetching applications:", error);

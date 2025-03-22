@@ -31,7 +31,7 @@ export default function AdminContact() {
       
         updateContact(res.data.result);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
   };

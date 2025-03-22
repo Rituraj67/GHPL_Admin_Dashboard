@@ -95,7 +95,7 @@ export default function Careers() {
           setSuccessMessage("")
         }, 3000)
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }
     }
   }

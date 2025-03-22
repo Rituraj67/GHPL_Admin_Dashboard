@@ -13,7 +13,7 @@ export function TestimonialProvider({ children }) {
       const res = await axios.get("/api/testimonial/");
       setTestimonials(res.data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setIsLoading(false);
     }

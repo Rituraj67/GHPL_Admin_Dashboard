@@ -77,7 +77,7 @@ export default function TestimonialForm({ initialData = null, onSubmit, isEditin
             }
         })
       }
-      console.log("Testimonial submitted:", res.data)
+     
       onSubmit(res.data)
   
     } catch (error) {

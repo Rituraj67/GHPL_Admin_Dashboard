@@ -99,7 +99,7 @@ export default function JobForm({
       } else {
         res = await axios.post(`/api/jobs/`, formData);
       }
-      console.log(res);
+    
       onSubmit(res.data);
     } catch (error) {
     } finally {

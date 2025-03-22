@@ -15,7 +15,7 @@ export function ProductProvider({children}){
             
             setproducts(res.data);
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }finally{
             setIsLoading(false)
         }

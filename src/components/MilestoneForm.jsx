@@ -75,7 +75,6 @@ export default function MilestoneForm({ initialData = null, onSubmit, isEditing 
           }
         })
       }
-      console.log("Milestone submitted:", res.data)
   
       onSubmit(res.data)
     } catch (error) {

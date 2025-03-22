@@ -26,7 +26,7 @@ export function AuthProvider({ children }) {
           navigate("/admin");
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }finally{
         setIsLoading(false)
       }
