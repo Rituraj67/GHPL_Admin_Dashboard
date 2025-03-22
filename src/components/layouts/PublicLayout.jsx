@@ -74,6 +74,8 @@ export default function PublicLayout({ children }) {
               )}
             </nav>
 
+            
+
             {/* Mobile Menu Button */}
             <div className="md:hidden">
               <button className="p-2 rounded-md hover:bg-gray-100" onClick={() => setIsMenuOpen(!isMenuOpen)}>
